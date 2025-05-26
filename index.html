@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
     <link rel="manifest" href="/manifest.webmanifest">
 </head>
 
@@ -44,10 +43,14 @@
                 <div class="changeLogContainer">
                     <h2>Was ist neu?</h2>
                     <div class="updateEntry">
-                        <span class="version">Version 1.1</span>
-                        <span class="date">22. Mai 2025</span>
-                        <ul>
-                            <li>Autofill wurde in den Eingabefeldern Hinzufügen und beim Vokabel-Test entfernt</li>
+                        <span class="version">Version 1.2</span>
+                        <span class="date">26. Mai 2025</span>
+                        <ul class="updateEntryUl">
+                            <li class="updateEntryLi">Leerzeichen am Anfang oder Ende bei einem Input werden automatisch entfernt.
+                                So wird es nicht als Fehler gezählt
+                            </li>
+                            <li class="updateEntryLi">Das Design der Hinzugefügten wörter in der Liste wurde verändert.
+                            </li>
                         </ul>
                     </div>
             
@@ -62,7 +65,7 @@
 
         </main>
     </div>
-
+<script src="script.js"></script>
 </body>
 
 </html>

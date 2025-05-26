@@ -1,49 +1,63 @@
-let dictionary = JSON.parse(localStorage.getItem('dictionary')) || {};
+    let dictionary = JSON.parse(localStorage.getItem('dictionary')) || {};
+    let randomGermanWord;
 
-function checkJSONWörterBuchStatus(){
-    	if(Object.keys(dictionary).length == 0) {
-        console.log("Wörter-Buch ist leer");
-        document.getElementById('vokabelAbfrageForm').style.display = 'none'; // Verstecke das Formular
-        document.getElementById('empty-message').style.display = 'block';  // Zeige die Leere-Meldung
+    const germanText = document.getElementById('germanText');
+    const englishText = document.getElementById('englishText');
+    const vocabularyList = document.getElementById('vocabularyList');
+    const word = document.getElementById('word');
+    const text = document.getElementById('text');
+    const germanTextInput = document.getElementById('germanTextInput');
 
-    } else {
-        console.log("Wörter-Buch ist NICHT leer!");
-        document.getElementById('vokabelAbfrageForm').style.display = 'block'; // Zeige das Formular
-        document.getElementById('empty-message').style.display = 'none';   // Verstecke die Leere-Meldung
-        nextVocabulary(); // Rufe nextVocabulary auf, wenn das Wörterbuch nicht leer ist
+    function checkJSONWörterBuchStatus() {
+        if (Object.keys(dictionary).length === 0) {
+            document.getElementById('vokabelAbfrageForm').style.display = 'none';
+            document.getElementById('empty-message').style.display = 'block';
+        } else {
+            document.getElementById('vokabelAbfrageForm').style.display = 'block';
+            document.getElementById('empty-message').style.display = 'none';
+            nextVocabulary();
+        }
     }
-}
-let randomGermanWord;
 
-function addVocabulary() {
-    dictionary[germanText.value] = englishText.value;
+    function addVocabulary() {
+        const german = germanText.value.trim();
+        const english = englishText.value.trim();
 
-    germanText.value = '';
-    englishText.value = '';
+        if (!german || !english) {
+            alert("Bitte beide Felder ausfüllen.");
+            return;
+        }
 
-    localStorage.setItem('dictionary', JSON.stringify(dictionary));
-    render();
-}
-
-function render() {
-    vocabularyList.innerHTML = '';
-    for (let key in dictionary) {
-        vocabularyList.innerHTML += `<li>${key} - ${dictionary[key]}</li>`;
+        dictionary[german] = english;
+        localStorage.setItem('dictionary', JSON.stringify(dictionary));
+        germanText.value = '';
+        englishText.value = '';
+        render();
     }
-}
 
-function nextVocabulary(){
-    let obj_keys = Object.keys(dictionary);
-    randomGermanWord = obj_keys[Math.floor(Math.random() * obj_keys.length)];
-    word.innerHTML = `${dictionary[randomGermanWord]}?`;
-}
-
-function compare(){
-    if(germanText.value == randomGermanWord) {
-        text.innerHTML = 'Richtig!!';
-    } else {
-        text.innerHTML = 'Falsch!!';
+    function render() {
+        vocabularyList.innerHTML = '';
+        for (let key in dictionary) {
+            vocabularyList.innerHTML += `<li class="Vokabelliste">${key} - ${dictionary[key]}</li>`;
+        }
     }
-    germanText.value = '';
-    nextVocabulary();
-}
+
+    function nextVocabulary() {
+        let keys = Object.keys(dictionary);
+        randomGermanWord = keys[Math.floor(Math.random() * keys.length)];
+        word.innerHTML = `${dictionary[randomGermanWord]}?`;
+    }
+
+    function compare() {
+        const userInput = germanTextInput.value.trim();
+        if (userInput === randomGermanWord) {
+            text.innerHTML = '✅ Richtig!!';
+        } else {
+            text.innerHTML = `❌ Falsch! Richtige Antwort: ${randomGermanWord}`;
+        }
+        germanTextInput.value = '';
+        nextVocabulary();
+    }
+
+n
+    
